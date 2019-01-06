@@ -145,9 +145,11 @@ public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
                 "   teacher_name = ?," +
                 "   description = ?," +
                 "   coast = ?," +
-                "   event_date = ?," +
-                "   img_name = ?" +
-                " where" +
+                "   event_date = ?");
+        if (isImgPathPresented(masterClass)) {
+            sb.append( ", img_name = ?");
+        }
+        sb.append(" where" +
                 "   id = ?");
         String query = sb.toString();
         try(PreparedStatement ps = connection.prepareStatement(query)) {
@@ -156,8 +158,12 @@ public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
             ps.setString(3, masterClass.getDescription());
             ps.setInt(4, masterClass.getCoast());
             ps.setDate(5, new java.sql.Date(masterClass.getMasterClassDate().getTime()));
-            ps.setString(6, masterClass.getImgPath());
-            ps.setInt(7, masterClass.getMasterClassId());
+            if (isImgPathPresented(masterClass)) {
+                ps.setString(6, masterClass.getImgPath());
+                ps.setInt(7, masterClass.getMasterClassId());
+            } else {
+                ps.setInt(6, masterClass.getMasterClassId());
+            }
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new MasterClassAdminDaoException(

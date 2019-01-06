@@ -97,7 +97,9 @@ public class MasterClassUserDaoImpl implements MasterClassUserDao {
                     int coast = rs.getInt(5);
                     Date masterClassDate = rs.getTimestamp(6);
                     String imgName = rs.getString(7);
-
+                    if (imgName == null || "".equals(imgName)) {
+                        imgName = MasterClass.DEFAULT_IMG;
+                    }
                     MasterClass masterClass = new MasterClass.Builder(masterClassName, coast, masterClassDate)
                             .addMasterClassId(id)
                             .addTeacherName(teacherName)

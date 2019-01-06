@@ -90,8 +90,6 @@ public class AdminSaveMasterClassController extends HttpServlet {
                 fileSaveDir.mkdirs();
             }
             part.write(uploadFilePath + File.separator + fileName);
-        } else {
-            fileName = "default.jpg";
         }
         return fileName;
     }
