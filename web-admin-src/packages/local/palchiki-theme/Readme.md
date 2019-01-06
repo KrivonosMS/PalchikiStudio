@@ -1,0 +1,2 @@
+# palchiki-theme - Read Me
+

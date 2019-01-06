@@ -1,0 +1,33 @@
+{
+  "success": true,
+  "data": [
+    {
+      "master_class_id": 1,
+      "name": "name1",
+      "teacher_name": "teacher_name1",
+      "description": "description1",
+      "date": "28.10.2018 12:00",
+      "coast": 1000,
+      "img_path": "logo.png"
+    },
+    {
+      "master_class_id": 2,
+      "name": "name2",
+      "teacher_name": "teacher_name2",
+      "description": "description2",
+      "date": "29.10.2018 11:00",
+      "coast": 1001,
+      "img_path": "logo.png"
+    },
+    {
+      "master_class_id": 3,
+      "name": "name3",
+      "teacher_name": "teacher_name3",
+      "description": "description3",
+      "date": "30.10.2018 10:30",
+      "coast": 1002,
+      "img_path": "logo.png"
+    }
+  ],
+  "total": 100
+}
