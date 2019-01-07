@@ -11,12 +11,11 @@
   <script src="https://use.fontawesome.com/661a533fef.js"></script>
 <body>
   <div class="container">
-    <div class="shortMenu"><img src="resources/images/menu_.png"></div>
     <div class="header">
       <div class="logo"><a href="/PalchikiStudio/"><img src="resources/images/logo.png" alt="Пальчики"></a></div>
       <ul class='menuInfo'>
         <li><a href="/PalchikiStudio/">Главная</a></li>
-        <li><a href="/PalchikiStudio/parties">Галерея</a></li>
+        <li><a href="/PalchikiStudio/gallery">Галерея</a></li>
         <li>Контакты</li>
         <li><a href="/PalchikiStudio/forecast">Анонс</a></li>
       </ul>
