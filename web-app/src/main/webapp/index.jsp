@@ -11,7 +11,6 @@
 </head>
 <body>
   <div class="container">
-  <div class="shortMenu"><img src="resources/images/menu_.png"></div>
     <div class="header">
       <div class="logo"><img src="resources/images/logo.png" alt="Пальчики"></div>
       <ul class='menuInfo'>
