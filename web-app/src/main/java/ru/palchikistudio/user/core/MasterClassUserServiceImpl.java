@@ -19,10 +19,9 @@ public class MasterClassUserServiceImpl implements MasterClassUserService {
     }
 
     @Override
-    public String getAllActualMasterClasses() throws MasterClassUserServiceException {
+    public List<MasterClass> getAllActualMasterClasses() throws MasterClassUserServiceException {
         try {
-            List<MasterClass> masterClasses = masterClassDao.getAllActualMasterClasses();
-            return transformToJson(masterClasses);
+            return masterClassDao.getAllActualMasterClasses();
         } catch (MasterClassDaoException e) {
             throw new MasterClassUserServiceException("Ошибка при получении списка актуальных мастер-классов", e);
         }

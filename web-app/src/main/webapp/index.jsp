@@ -12,30 +12,29 @@
 <body>
   <div class="container">
     <div class="header">
-      <div class="logo"><img src="resources/images/logo.png" alt="Пальчики"></div>
+      <div class="logo"><img src="/PalchikiStudio/resources/images/logo.png" alt="Пальчики"></div>
       <ul class='menuInfo'>
         <li>Главная</li>
-        <li><a href="/PalchikiStudio/gallery">Галерея</a></li>
-        <li><a href="/PalchikiStudio/contacts">Контакты</a></li>
-        <li><a href="/PalchikiStudio/forecast">Анонс</a></li>
+        <li><a href="/PalchikiStudio/site/gallery">Галерея</a></li>
+        <li><a href="/PalchikiStudio/site/contacts">Контакты</a></li>
+        <li><a href="/PalchikiStudio/site/forecast">Анонс</a></li>
       </ul>
     </div>
     <div class="phoneCircles">
       <div class="mainCircles">
         <div id="similar-circle-list"><!--Список похожих кругов меню--></div>
       </div>
-      <div><img class="phone" src="resources/images/phone_green.png"></div>
+      <div><img class="phone" src="/PalchikiStudio/resources/images/phone_green.png"></div>
     </div>
-    <%@ include file = "WEB-INF/views/feedback.jsp" %>
+    <%@ include file = "/WEB-INF/views/feedback.jsp" %>
   </div>
   <template id="similarCircleTemplate"> <!---шаблон для клонирования--->
     <div class="circleOut changeText">
       <div class="circleIn similar-circle"></div>
     </div>
   </template>
-  <script src="js/circles.js"></script>
-  <script src="js/load.js"></script>
-  <script src="js/callback.js"></script>
-  <script src="js/shortmenu.js"></script>
+  <script src="/PalchikiStudio/js/circles.js"></script>
+  <script src="/PalchikiStudio/js/load.js"></script>
+  <script src="/PalchikiStudio/js/callback.js"></script>
 </body>
 </html>

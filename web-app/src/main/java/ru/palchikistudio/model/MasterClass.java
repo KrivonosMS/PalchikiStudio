@@ -1,8 +1,8 @@
 package ru.palchikistudio.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.security.PublicKey;
 import java.util.Date;
 
 /**
@@ -10,22 +10,24 @@ import java.util.Date;
  */
 public class MasterClass {
     public final static String DATE_FORMAT = "dd.MM.yyyy hh:mm";
-    public final static String IMG_DIRECTORY =  "../uploads/palchiki/mk";
+    public final static String IMG_DIRECTORY =  "/uploads/palchiki/mk";
     public final static String DEFAULT_IMG = "default.jpg";
+//    public final static String
 
-    @SerializedName("master_class_id")
+    @JsonProperty("master_class_id")
     private final Integer masterClassId;
-    @SerializedName("name")
+    @JsonProperty("name")
     private final String masterClassName;
     private String description;
-    @SerializedName("teacher_name")
+    @JsonProperty("teacher_name")
     private final String teacherName;
     private final int coast;
-    @SerializedName("date")
+    @JsonProperty("date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
     private final Date masterClassDate;
-    @SerializedName("img_path")
+    @JsonProperty("img_path")
     private final String imgPath;
-    @SerializedName("is_deleted")
+    @JsonProperty("is_deleted")
     private final Boolean isDeleted;
 
     private MasterClass(Builder builder) {

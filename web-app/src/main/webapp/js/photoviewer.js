@@ -2,7 +2,14 @@
 
 (function () {
   var ESC_KEY = 27;
-  var LINKS = ['resources/images/photoes/1.jpg', 'resources/images/photoes/2.jpg', 'resources/images/photoes/3.jpg', 'resources/images/photoes/10.jpg', 'resources/images/photoes/11.jpg', 'resources/images/photoes/12.jpg'];
+  var LINKS = [
+                '/PalchikiStudio/resources/images/photoes/1.jpg',
+                '/PalchikiStudio/resources/images/photoes/2.jpg',
+                '/PalchikiStudio/resources/images/photoes/3.jpg',
+                '/PalchikiStudio/resources/images/photoes/10.jpg',
+                '/PalchikiStudio/resources/images/photoes/11.jpg',
+                '/PalchikiStudio/resources/images/photoes/12.jpg'
+                ];
 
   function renderPhotoes() {
     var similarListElement = document.querySelector('#setup-similar-list'); // обращаемся к элементу превьюшек, в котором будут все склонированные копии

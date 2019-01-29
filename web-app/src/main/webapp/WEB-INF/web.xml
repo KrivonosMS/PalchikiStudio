@@ -1,99 +1,50 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
-  <servlet>
-    <servlet-name>GalleryController</servlet-name>
-    <servlet-class>ru.palchikistudio.user.controller.GalleryController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>GalleryController</servlet-name>
-    <url-pattern>/gallery</url-pattern>
-  </servlet-mapping>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
   <servlet>
-    <servlet-name>ContactController</servlet-name>
-    <servlet-class>ru.palchikistudio.user.controller.ContactController</servlet-class>
+    <servlet-name>PalchikiStudio</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ContactController</servlet-name>
-    <url-pattern>/contacts</url-pattern>
+    <servlet-name>PalchikiStudio</servlet-name>
+    <url-pattern>/site/*</url-pattern>
   </servlet-mapping>
 
-  <servlet>
-    <servlet-name>ForecastController</servlet-name>
-    <servlet-class>ru.palchikistudio.user.controller.ForecastController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ForecastController</servlet-name>
-    <url-pattern>/forecast</url-pattern>
-  </servlet-mapping>
+  <!--<servlet>-->
+    <!--<servlet-name>AdminAuthControlle</servlet-name>-->
+    <!--<servlet-class>ru.palchikistudio.admin.controller.AdminAuthController</servlet-class>-->
+  <!--</servlet>-->
+  <!--<servlet-mapping>-->
+    <!--<servlet-name>AdminAuthControlle</servlet-name>-->
+    <!--<url-pattern>/AdminPanel/login</url-pattern>-->
+  <!--</servlet-mapping>-->
 
-  <servlet>
-    <servlet-name>AnnouncementController</servlet-name>
-    <servlet-class>ru.palchikistudio.user.controller.AnnouncementController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AnnouncementController</servlet-name>
-    <url-pattern>/announcement</url-pattern>
-  </servlet-mapping>
+  <!--<servlet>-->
+    <!--<servlet-name>AdminMainPageController</servlet-name>-->
+    <!--<servlet-class>ru.palchikistudio.admin.controller.AdminMainPageController</servlet-class>-->
+  <!--</servlet>-->
+  <!--<servlet-mapping>-->
+    <!--<servlet-name>AdminMainPageController</servlet-name>-->
+    <!--<url-pattern>/AdminPanel/master_class</url-pattern>-->
+  <!--</servlet-mapping>-->
 
-  <servlet>
-    <servlet-name>FeedbackController</servlet-name>
-    <servlet-class>ru.palchikistudio.user.controller.FeedbackController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>FeedbackController</servlet-name>
-    <url-pattern>/feedback</url-pattern>
-  </servlet-mapping>
+  <!--<servlet>-->
+    <!--<servlet-name>AdminDeleteMasterClassController</servlet-name>-->
+    <!--<servlet-class>ru.palchikistudio.admin.controller.AdminDeleteMasterClassController</servlet-class>-->
+  <!--</servlet>-->
+  <!--<servlet-mapping>-->
+    <!--<servlet-name>AdminDeleteMasterClassController</servlet-name>-->
+    <!--<url-pattern>/AdminPanel/delete</url-pattern>-->
+  <!--</servlet-mapping>-->
 
-  <servlet>
-    <servlet-name>EmptyPageController</servlet-name>
-    <servlet-class>ru.palchikistudio.user.controller.EmptyPageController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>EmptyPageController</servlet-name>
-    <url-pattern>/mock</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>AdminAuthControlle</servlet-name>
-    <servlet-class>ru.palchikistudio.admin.controller.AdminAuthController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AdminAuthControlle</servlet-name>
-    <url-pattern>/AdminPanel/login</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>AdminMainPageController</servlet-name>
-    <servlet-class>ru.palchikistudio.admin.controller.AdminMainPageController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AdminMainPageController</servlet-name>
-    <url-pattern>/AdminPanel/master_class</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>AdminDeleteMasterClassController</servlet-name>
-    <servlet-class>ru.palchikistudio.admin.controller.AdminDeleteMasterClassController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AdminDeleteMasterClassController</servlet-name>
-    <url-pattern>/AdminPanel/delete</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>AdminAddOrUpdateMasterClassServlet</servlet-name>
-    <servlet-class>ru.palchikistudio.admin.controller.AdminSaveMasterClassController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AdminAddOrUpdateMasterClassServlet</servlet-name>
-    <url-pattern>/AdminPanel/save</url-pattern>
-  </servlet-mapping>
-
-  <welcome-file-list>
-    <welkom-file>index.jsp</welkom-file>
-  </welcome-file-list>
+  <!--<servlet>-->
+    <!--<servlet-name>AdminAddOrUpdateMasterClassServlet</servlet-name>-->
+    <!--<servlet-class>ru.palchikistudio.admin.controller.AdminSaveMasterClassController</servlet-class>-->
+  <!--</servlet>-->
+  <!--<servlet-mapping>-->
+    <!--<servlet-name>AdminAddOrUpdateMasterClassServlet</servlet-name>-->
+    <!--<url-pattern>/AdminPanel/save</url-pattern>-->
+  <!--</servlet-mapping>-->
 </web-app>
