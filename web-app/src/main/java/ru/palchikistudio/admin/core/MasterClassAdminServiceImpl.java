@@ -1,7 +1,9 @@
 package ru.palchikistudio.admin.core;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Service;
+import ru.palchikistudio.admin.data.MasterClassAdminDao;
 import ru.palchikistudio.admin.data.MasterClassAdminDaoException;
 import ru.palchikistudio.admin.data.MasterClassAdminDaoImpl;
 import ru.palchikistudio.admin.response.MasterClassResponse;
@@ -12,11 +14,15 @@ import java.util.List;
 /**
  * Created by Admin on 04.11.2018.
  */
+@Service
 public class MasterClassAdminServiceImpl implements MasterClassAdminService {
-    private static String value;
-    private final MasterClassAdminDaoImpl masterClassDao;
+    private MasterClassAdminDao masterClassDao;
 
-    public MasterClassAdminServiceImpl(MasterClassAdminDaoImpl masterClassDao) {
+    public MasterClassAdminServiceImpl() {
+    }
+
+    @Autowired
+    public void setMasterClassDao(MasterClassAdminDaoImpl masterClassDao) {
         this.masterClassDao = masterClassDao;
     }
 

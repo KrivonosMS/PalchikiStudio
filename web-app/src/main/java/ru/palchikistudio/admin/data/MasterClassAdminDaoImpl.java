@@ -1,5 +1,9 @@
 package ru.palchikistudio.admin.data;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Repository;
+import ru.palchikistudio.db.ConnectionManager;
 import ru.palchikistudio.model.MasterClass;
 
 import java.io.File;
@@ -14,11 +18,16 @@ import java.util.List;
 /**
  * Created by Admin on 01.11.2018.
  */
+@Repository
 public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
-    private final Connection connection;
+    private ConnectionManager connectionManager;
 
-    public MasterClassAdminDaoImpl(Connection connection) {
-        this.connection = connection;
+    public MasterClassAdminDaoImpl() {
+    }
+
+    @Autowired
+    public void setConnection(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
     }
 
     @Override
@@ -40,7 +49,8 @@ public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
                 " order by event_date asc" +
                 " limit ?, ?";
 
-        try(PreparedStatement ps = connection.prepareStatement(query)) {
+        try(Connection connection = connectionManager.getConnection();
+        PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, from);
             ps.setInt(2, limit);
             try (ResultSet rs = ps.executeQuery()) {
@@ -63,7 +73,7 @@ public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
                     masterClasses.add(masterClass);
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new MasterClassAdminDaoException("Ошбика при получении списка мастер-классов", e);
         }
         return masterClasses;
@@ -80,13 +90,14 @@ public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
             " where" +
             "   is_deleted = '0'";
 
-        try(PreparedStatement ps = connection.prepareStatement(query);
-                            ResultSet rs = ps.executeQuery()) {
+        try(Connection connection = connectionManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery()) {
         if(rs.next()) {
              res = rs.getInt(1);
         }
          return res;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new MasterClassAdminDaoException("Ошбика при получении списка мастер-классов", e);
         }
     }
@@ -101,10 +112,11 @@ public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
         " where" +
         "   id = ?";
 
-        try(PreparedStatement ps = connection.prepareStatement(query)) {
+        try(Connection connection = connectionManager.getConnection();
+        PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, id);
             ps.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new MasterClassAdminDaoException("Ошбика при удалении мастер-класса с id =" + id, e);
         }
     }
@@ -119,7 +131,8 @@ public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
                 "   )" +
                 " values(?,?,?,?,?,?)";
 
-        try(PreparedStatement ps = connection.prepareStatement(query)) {
+        try(Connection connection = connectionManager.getConnection();
+        PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, masterClass.getMasterClassName());
             ps.setString(2, masterClass.getTeacherName());
             ps.setString(3, masterClass.getDescription());
@@ -127,7 +140,7 @@ public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
             ps.setDate(5,  new java.sql.Date(masterClass.getMasterClassDate().getTime()));
             ps.setString(6, masterClass.getImgPath());
             ps.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new MasterClassAdminDaoException(
                     "Ошбика при добавлении мастер-класса '" + masterClass.getMasterClassName() + "'",
                     e
@@ -149,10 +162,10 @@ public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
         if (isImgPathPresented(masterClass)) {
             sb.append( ", img_name = ?");
         }
-        sb.append(" where" +
-                "   id = ?");
+        sb.append(" where id = ?");
         String query = sb.toString();
-        try(PreparedStatement ps = connection.prepareStatement(query)) {
+        try(Connection connection = connectionManager.getConnection();
+        PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, masterClass.getMasterClassName());
             ps.setString(2, masterClass.getTeacherName());
             ps.setString(3, masterClass.getDescription());
@@ -165,7 +178,7 @@ public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
                 ps.setInt(6, masterClass.getMasterClassId());
             }
             ps.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new MasterClassAdminDaoException(
                     "Ошбика при обновлении мастер-класса с id =" + masterClass.getMasterClassId(),
                     e
@@ -176,6 +189,4 @@ public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
     private boolean isImgPathPresented(MasterClass masterClass) {
         return masterClass.getImgPath() != null && !"".equals(masterClass.getImgPath());
     }
-
-
 }

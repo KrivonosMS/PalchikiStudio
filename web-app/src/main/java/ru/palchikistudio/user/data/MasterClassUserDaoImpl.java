@@ -1,5 +1,8 @@
 package ru.palchikistudio.user.data;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import ru.palchikistudio.db.ConnectionManager;
 import ru.palchikistudio.model.MasterClass;
 
 import java.io.File;
@@ -14,11 +17,16 @@ import java.util.List;
 /**
  * Created by Admin on 01.11.2018.
  */
+@Repository
 public class MasterClassUserDaoImpl implements MasterClassUserDao {
-    private final Connection connection;
+    private ConnectionManager connectionManager;
 
-    public MasterClassUserDaoImpl(Connection connection) {
-        this.connection = connection;
+    public MasterClassUserDaoImpl() {
+    }
+
+    @Autowired
+    public void setConnectionManager(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
     }
 
     @Override
@@ -40,7 +48,9 @@ public class MasterClassUserDaoImpl implements MasterClassUserDao {
                 "   is_deleted = '0'" +
                 " order by event_date asc";
 
-        try(PreparedStatement ps = connection.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+        try(Connection connection = connectionManager.getConnection();
+        PreparedStatement ps = connection.prepareStatement(query);
+        ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 String masterClassName = rs.getString(1);
                 String teacherName = rs.getString(2);
@@ -60,7 +70,7 @@ public class MasterClassUserDaoImpl implements MasterClassUserDao {
 
                 actualMasterClasses.add(masterClass);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new MasterClassDaoException("Ошбика при получении списка предстоящих мастер-классов", e);
         }
         return actualMasterClasses;
@@ -85,7 +95,8 @@ public class MasterClassUserDaoImpl implements MasterClassUserDao {
                 " order by event_date asc" +
                 " limit ?, ?";
 
-        try(PreparedStatement ps = connection.prepareStatement(query)) {
+        try(Connection connection = connectionManager.getConnection();
+        PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, from);
             ps.setInt(2, limit);
             try (ResultSet rs = ps.executeQuery()) {
@@ -110,7 +121,7 @@ public class MasterClassUserDaoImpl implements MasterClassUserDao {
                     masterClasses.add(masterClass);
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new MasterClassDaoException("Ошбика при получении списка мастер-классов", e);
         }
         return masterClasses;

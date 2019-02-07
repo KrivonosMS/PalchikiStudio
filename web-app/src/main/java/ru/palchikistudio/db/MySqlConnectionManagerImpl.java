@@ -1,5 +1,7 @@
 package ru.palchikistudio.db;
 
+import org.springframework.stereotype.Component;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,6 +11,7 @@ import java.util.List;
 /**
  * Created by Admin on 29.10.2018.
  */
+@Component
 public class MySqlConnectionManagerImpl implements ConnectionManager {
     private final String className = "com.mysql.jdbc.Driver";
     private final String url;
@@ -26,6 +29,10 @@ public class MySqlConnectionManagerImpl implements ConnectionManager {
         this(dbConfig.getUrl(), dbConfig.getUser(), dbConfig.getPassword());
     }
 
+    public MySqlConnectionManagerImpl() throws Exception {
+        this(new DbConfig("db.properties"));
+    }
+
     private void checkByNull(String url, String user, String password) {
         List<String> errorMessages = new ArrayList<>();
         if (url == null || "".endsWith(url)) {
@@ -37,7 +44,6 @@ public class MySqlConnectionManagerImpl implements ConnectionManager {
         if (password == null || "".endsWith(password)) {
             errorMessages.add("Не задан парольл пользователя БД");
         }
-
         if (errorMessages.size() > 0) {
             throw new IllegalArgumentException(errorMessages.toString());
         }
