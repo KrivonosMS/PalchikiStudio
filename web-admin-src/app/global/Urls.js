@@ -4,7 +4,7 @@ var urls = (function(){
     };
 
     function createUrl(action) {
-        return window.location.href + action;
+        return window.location.href + 'data/' + action;
     };
 
     return {

@@ -21,20 +21,15 @@ public class MasterClassAdminServiceImpl implements MasterClassAdminService {
     }
 
     @Override
-    public String getAllMasterClasses(int from, int limit) throws MasterClassAdminServiceException {
+    public MasterClassResponse getAllMasterClasses(int from, int limit) throws MasterClassAdminServiceException {
         try {
             int totalCount = getTotalMasterClassCount();
             List<MasterClass> masterClasses = masterClassDao.getAllMasterClasses(from, limit);
             MasterClassResponse answer = new MasterClassResponse(masterClasses, totalCount);
-            return transformToJson(answer);
+            return answer;
         } catch (MasterClassAdminDaoException e) {
             throw new MasterClassAdminServiceException("Ошибка при получении списка мастер-классов", e);
         }
-    }
-
-    private String transformToJson(MasterClassResponse  masterClassesResponse) {
-        Gson gson = new GsonBuilder().setDateFormat(MasterClass.DATE_FORMAT).create();
-        return gson.toJson(masterClassesResponse);
     }
 
     @Override
@@ -47,24 +42,22 @@ public class MasterClassAdminServiceImpl implements MasterClassAdminService {
     }
 
     @Override
-    public String setIsDeleted(int id) throws MasterClassAdminServiceException {
+    public void setIsDeleted(int id) throws MasterClassAdminServiceException {
         try {
             masterClassDao.setIsDeletedStatus(id);
-            return "{\"success\": \"true\"}";
         } catch (MasterClassAdminDaoException e) {
             throw new MasterClassAdminServiceException("Ошика обращении к удалениому мастер-класса", e);
         }
     }
 
     @Override
-    public String saveMasterClass(MasterClass masterClass) throws MasterClassAdminServiceException {
+    public void saveMasterClass(MasterClass masterClass) throws MasterClassAdminServiceException {
         try {
             if (masterClass.getMasterClassId() == null) {
                 masterClassDao.createMasterClass(masterClass);
             } else {
                 masterClassDao.updateMasterClass(masterClass);
             }
-            return "{\"success\": \"true\"}";
         } catch (MasterClassAdminDaoException e) {
             throw new MasterClassAdminServiceException("Ошика обращении к удалениому мастер-класса", e);
         }

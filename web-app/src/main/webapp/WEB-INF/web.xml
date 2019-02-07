@@ -12,39 +12,12 @@
     <url-pattern>/site/*</url-pattern>
   </servlet-mapping>
 
-  <!--<servlet>-->
-    <!--<servlet-name>AdminAuthControlle</servlet-name>-->
-    <!--<servlet-class>ru.palchikistudio.admin.controller.AdminAuthController</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>AdminAuthControlle</servlet-name>-->
-    <!--<url-pattern>/AdminPanel/login</url-pattern>-->
-  <!--</servlet-mapping>-->
-
-  <!--<servlet>-->
-    <!--<servlet-name>AdminMainPageController</servlet-name>-->
-    <!--<servlet-class>ru.palchikistudio.admin.controller.AdminMainPageController</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>AdminMainPageController</servlet-name>-->
-    <!--<url-pattern>/AdminPanel/master_class</url-pattern>-->
-  <!--</servlet-mapping>-->
-
-  <!--<servlet>-->
-    <!--<servlet-name>AdminDeleteMasterClassController</servlet-name>-->
-    <!--<servlet-class>ru.palchikistudio.admin.controller.AdminDeleteMasterClassController</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>AdminDeleteMasterClassController</servlet-name>-->
-    <!--<url-pattern>/AdminPanel/delete</url-pattern>-->
-  <!--</servlet-mapping>-->
-
-  <!--<servlet>-->
-    <!--<servlet-name>AdminAddOrUpdateMasterClassServlet</servlet-name>-->
-    <!--<servlet-class>ru.palchikistudio.admin.controller.AdminSaveMasterClassController</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>AdminAddOrUpdateMasterClassServlet</servlet-name>-->
-    <!--<url-pattern>/AdminPanel/save</url-pattern>-->
-  <!--</servlet-mapping>-->
+  <servlet>
+    <servlet-name>AdminPanel</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminPanel</servlet-name>
+    <url-pattern>/AdminPanel/data/*</url-pattern>
+  </servlet-mapping>
 </web-app>

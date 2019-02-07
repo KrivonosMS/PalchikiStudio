@@ -10,25 +10,24 @@ import java.util.Date;
  */
 public class MasterClass {
     public final static String DATE_FORMAT = "dd.MM.yyyy hh:mm";
-    public final static String IMG_DIRECTORY =  "/uploads/palchiki/mk";
+    public final static String IMG_DIRECTORY = "/uploads/palchiki/mk";
     public final static String DEFAULT_IMG = "default.jpg";
-//    public final static String
 
     @JsonProperty("master_class_id")
-    private final Integer masterClassId;
+    private Integer masterClassId;
     @JsonProperty("name")
-    private final String masterClassName;
+    private String masterClassName;
     private String description;
     @JsonProperty("teacher_name")
-    private final String teacherName;
-    private final int coast;
+    private String teacherName;
+    private int coast;
     @JsonProperty("date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
-    private final Date masterClassDate;
+    private Date masterClassDate;
     @JsonProperty("img_path")
-    private final String imgPath;
+    private String imgPath;
     @JsonProperty("is_deleted")
-    private final Boolean isDeleted;
+    private Boolean isDeleted;
 
     private MasterClass(Builder builder) {
         this.masterClassId = builder.masterClassId;
@@ -39,6 +38,9 @@ public class MasterClass {
         this.masterClassDate = builder.masterClassDate;
         this.imgPath = builder.imgPath;
         this.isDeleted = builder.isDeleted;
+    }
+
+    public MasterClass() {
     }
 
     public static class Builder {
@@ -122,22 +124,26 @@ public class MasterClass {
         public boolean isDeleted() {
             return isDeleted;
         }
+    }
 
-        @Override
-        public String toString() {
-            return "MasterClass{" +
-                    "masterClassId=" + masterClassId +
-                    ", masterClassName='" + masterClassName + '\'' +
-                    ", description='" + description + '\'' +
-                    ", teacherName='" + teacherName + '\'' +
-                    ", coast=" + coast +
-                    ", masterClassDate=" + masterClassDate +
-                    ", isDeleted=" + isDeleted +
-                    '}';
-        }
+    @Override
+    public String toString() {
+        return "MasterClass{" +
+                "masterClassId=" + masterClassId +
+                ", masterClassName='" + masterClassName + '\'' +
+                ", description='" + description + '\'' +
+                ", teacherName='" + teacherName + '\'' +
+                ", coast=" + coast +
+                ", masterClassDate=" + masterClassDate +
+                ", isDeleted=" + isDeleted +
+                '}';
     }
 
     public Integer getMasterClassId() {
+        return masterClassId;
+    }
+
+    public Integer setMasterClassId() {
         return this.masterClassId;
     }
 
