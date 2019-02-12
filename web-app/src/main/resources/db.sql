@@ -40,3 +40,13 @@ VALUES
     ('forth_master', 'forth_teacher', 'forth_descrition', '2020-09-23 11:45:00', 300);
 
 SELECT * FROM tbl_master_events;
+
+
+CREATE TABLE users
+(
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(30) NOT NULL,
+    password VARCHAR(200) NOT NULL,
+    role VARCHAR(30) NOT NULL,
+    enable INTEGER
+);
