@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <b:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <b:property name="driverClassName" value="com.mysql.jdbc.Driver"></b:property>
+        <b:property name="url" value="jdbc:mysql://localhost/palchiki_studio"></b:property>
+        <b:property name="username" value="root"></b:property>
+        <b:property name="password" value="root"></b:property>
+    </b:bean>
+</b:beans>

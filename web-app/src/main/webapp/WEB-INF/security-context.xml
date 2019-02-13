@@ -18,11 +18,22 @@
         <intercept-url pattern="/" access="permitAll" />
         <logout logout-success-url="/"  />
     </http>
+
+    <!--<authentication-manager>-->
+        <!--<authentication-provider>-->
+            <!--<user-service>-->
+                <!--<user name="admin" password="admin" authorities="ROLE_ADMIN"/>-->
+            <!--</user-service>-->
+        <!--</authentication-provider>-->
+    <!--</authentication-manager>-->
+
+    <b:bean name="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
     <authentication-manager>
         <authentication-provider>
-            <user-service>
-                <user name="admin" password="admin" authorities="ROLE_ADMIN"/>
-            </user-service>
+            <password-encoder ref="passwordEncoder" />
+            <jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query="SELECT username, password, enable FROM users WHERE username =?"
+                               authorities-by-username-query="SELECT username, role FROM users WHERE username =?" />
         </authentication-provider>
     </authentication-manager>
 </b:beans>

@@ -45,7 +45,7 @@ SELECT * FROM tbl_master_events;
 CREATE TABLE users
 (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(30) NOT NULL,
+    username VARCHAR(30) NOT NULL UNIQUE,
     password VARCHAR(200) NOT NULL,
     role VARCHAR(30) NOT NULL,
     enable INTEGER
