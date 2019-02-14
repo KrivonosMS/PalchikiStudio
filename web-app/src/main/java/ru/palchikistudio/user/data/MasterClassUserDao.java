@@ -9,6 +9,4 @@ import java.util.List;
  */
 public interface MasterClassUserDao {
     public List<MasterClass> getAllActualMasterClasses() throws MasterClassDaoException;
-    public List<MasterClass> getAllMasterClasses(int from, int to) throws MasterClassDaoException;
-
 }
