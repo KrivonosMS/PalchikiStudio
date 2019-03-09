@@ -8,16 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.palchikistudio.admin.core.MasterClassAdminService;
-import ru.palchikistudio.db.DbConfig;
-import ru.palchikistudio.db.MySqlConnectionManagerImpl;
 import ru.palchikistudio.model.MasterClass;
 import ru.palchikistudio.user.core.FeedbackService;
 import ru.palchikistudio.user.core.MasterClassUserService;
-import ru.palchikistudio.user.core.MasterClassUserServiceImpl;
-import ru.palchikistudio.user.data.MasterClassUserDaoImpl;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.stream.Collectors;
 

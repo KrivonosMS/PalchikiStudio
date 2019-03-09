@@ -1,7 +1,6 @@
 package ru.palchikistudio.admin.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 import ru.palchikistudio.admin.data.MasterClassAdminDao;
 import ru.palchikistudio.admin.data.MasterClassAdminDaoException;

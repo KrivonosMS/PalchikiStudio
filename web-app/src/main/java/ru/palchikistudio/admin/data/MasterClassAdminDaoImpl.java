@@ -3,11 +3,9 @@ package ru.palchikistudio.admin.data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import ru.palchikistudio.model.mapper.MasterClassMapper;
-import ru.palchikistudio.db.ConnectionManager;
 import ru.palchikistudio.model.MasterClass;
+import ru.palchikistudio.model.mapper.MasterClassMapper;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 /**
