@@ -1,11 +1,14 @@
 package ru.palchikistudio.user.data;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.palchikistudio.model.MasterClass;
-import ru.palchikistudio.model.mapper.MasterClassMapper;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -13,30 +16,28 @@ import java.util.List;
  */
 @Repository
 public class MasterClassUserDaoImpl implements MasterClassUserDao {
-    private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private SessionFactory sessionFactory;
 
     public MasterClassUserDaoImpl() {
     }
 
-    @Autowired
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public List<MasterClass> getAllActualMasterClasses() throws MasterClassDaoException {
-                String query =
-                " select * from" +
-                "   palchiki_studio.tbl_master_events events" +
-                " where" +
-                "   event_date > now()" +
-                "   and" +
-                "   is_deleted = '0'" +
-                " order by event_date asc";
-
-        return jdbcTemplate.query(
-                query,
-                new MasterClassMapper()
-        );
+    public List<MasterClass> getAllActualMasterClasses() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MasterClass.class);
+        List<MasterClass> masterClasses =
+                        criteria
+                        .add(Restrictions.eq("isDeleted", false))
+                        .add(Restrictions.ge("masterClassDate", new Date(System.currentTimeMillis())))
+                        .list();
+        session.getTransaction().commit();
+        session.close();
+        return  masterClasses;
     }
 }

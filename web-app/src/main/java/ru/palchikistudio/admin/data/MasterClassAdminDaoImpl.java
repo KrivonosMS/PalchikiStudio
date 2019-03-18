@@ -1,10 +1,15 @@
 package ru.palchikistudio.admin.data;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.palchikistudio.model.MasterClass;
-import ru.palchikistudio.model.mapper.MasterClassMapper;
 
 import java.util.List;
 
@@ -13,7 +18,11 @@ import java.util.List;
  */
 @Repository
 public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
+    private static final Logger LOGGER = Logger.getLogger(MasterClassAdminDaoImpl.class);
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Autowired
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -21,118 +30,66 @@ public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
     }
 
     public MasterClassAdminDaoImpl() {
+
     }
 
     @Override
-    public List<MasterClass> getAllMasterClasses(int from, int limit) throws MasterClassAdminDaoException {
-        String query = String.format(
-                " select * from" +
-                "   palchiki_studio.tbl_master_events events" +
-                " where" +
-                "   is_deleted = '0'" +
-                " order by event_date asc" +
-                " limit %d, %d",
-                from, limit);
-
-        return jdbcTemplate.query(
-                query,
-                new MasterClassMapper()
-        );
+    public List<MasterClass> getAllMasterClasses(int from, int limit) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MasterClass.class);
+        List<MasterClass> masterClasses = criteria
+                        .add(Restrictions.eq("isDeleted", false))
+                        .addOrder(Order.asc("masterClassDate"))
+                        .setFirstResult(from)
+                        .setMaxResults(limit)
+                        .list();
+        session.getTransaction().commit();
+        session.close();
+        return  masterClasses;
     }
 
     @Override
-    public int getTotalMasterClassCount() throws MasterClassAdminDaoException {
-        String query =
-            " select" +
-            "   count(id)" +
-            " from" +
-            "   palchiki_studio.tbl_master_events" +
-            " where" +
-            "   is_deleted = '0'";
-
-        return jdbcTemplate.queryForObject(
-                query,
-                new Object[] {},
-                Integer.class
-        );
+    public int getTotalMasterClassCount() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MasterClass.class);
+        int count  = criteria
+                        .add(Restrictions.eq("isDeleted", false))
+                        .list()
+                        .size();
+        session.getTransaction().commit();
+        session.close();
+        return count;
     }
 
     @Override
-    public void setIsDeletedStatus(int id) throws MasterClassAdminDaoException {
-        String query =
-        " update" +
-        "   palchiki_studio.tbl_master_events" +
-        " set" +
-         "  is_deleted = '1'" +
-        " where" +
-        "   id = ?";
-       jdbcTemplate.update(
-               query,
-               id
-       );
+    public void setIsDeletedStatus(int id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        MasterClass masterClass = session.get(MasterClass.class, id);
+        masterClass.setIsDeleted(true);
+        session.update(masterClass);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
-    public void createMasterClass(MasterClass masterClass) throws MasterClassAdminDaoException {
-        String query =
-                " insert into" +
-                "   palchiki_studio.tbl_master_events" +
-                "   (" +
-                "       master_name,teacher_name,description,coast,event_date,img_name" +
-                "   )" +
-                " values(?,?,?,?,?,?)";
-        jdbcTemplate.update(
-                    query,
-                    masterClass.getMasterClassName(),
-                    masterClass.getTeacherName(),
-                    masterClass.getDescription(),
-                    masterClass.getCoast(),
-                    new java.sql.Date(masterClass.getMasterClassDate().getTime()),
-                    masterClass.getImgPath()
-        );
+    public void saveMasterClass(MasterClass masterClass) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(masterClass);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
-    public void updateMasterClass(MasterClass masterClass) throws MasterClassAdminDaoException {
-        StringBuilder sb = new StringBuilder();
-        sb.append(" update" +
-                "   palchiki_studio.tbl_master_events" +
-                " set" +
-                "   master_name = ?," +
-                "   teacher_name = ?," +
-                "   description = ?," +
-                "   coast = ?," +
-                "   event_date = ?");
-        if (isImgPathPresented(masterClass)) {
-            sb.append( ", img_name = ?");
-        }
-        sb.append(" where id = ?");
-        String query = sb.toString();
-        if (isImgPathPresented(masterClass)) {
-            jdbcTemplate.update(
-                    query,
-                    masterClass.getMasterClassName(),
-                    masterClass.getTeacherName(),
-                    masterClass.getDescription(),
-                    masterClass.getCoast(),
-                    new java.sql.Date(masterClass.getMasterClassDate().getTime()),
-                    masterClass.getImgPath(),
-                    masterClass.getMasterClassId()
-            );
-        } else {
-            jdbcTemplate.update(
-                    query,
-                    masterClass.getMasterClassName(),
-                    masterClass.getTeacherName(),
-                    masterClass.getDescription(),
-                    masterClass.getCoast(),
-                    new java.sql.Date(masterClass.getMasterClassDate().getTime()),
-                    masterClass.getMasterClassId()
-            );
-        }
-    }
-
-    private boolean isImgPathPresented(MasterClass masterClass) {
-        return masterClass.getImgPath() != null && !"".equals(masterClass.getImgPath());
+    public String getImgPath(int id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        MasterClass masterClass = session.get(MasterClass.class, id);
+        session.getTransaction().commit();
+        session.close();
+        return masterClass.getImgPath();
     }
 }

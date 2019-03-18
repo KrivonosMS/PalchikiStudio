@@ -8,10 +8,9 @@ import java.util.List;
  * Created by Admin on 03.11.2018.
  */
 public interface MasterClassAdminDao {
-    public List<MasterClass> getAllMasterClasses(int from, int to) throws MasterClassAdminDaoException;
-    public int getTotalMasterClassCount() throws MasterClassAdminDaoException;
-    public void setIsDeletedStatus(int id) throws MasterClassAdminDaoException;
-    public void createMasterClass(MasterClass masterClass) throws MasterClassAdminDaoException;
-    public void updateMasterClass(MasterClass masterClass) throws MasterClassAdminDaoException;
-
+    public List<MasterClass> getAllMasterClasses(int from, int to);
+    public int getTotalMasterClassCount();
+    public void setIsDeletedStatus(int id);
+    public void saveMasterClass(MasterClass masterClass);
+    public String getImgPath(int id);
 }

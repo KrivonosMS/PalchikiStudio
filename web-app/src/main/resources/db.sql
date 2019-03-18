@@ -10,7 +10,7 @@ CREATE TABLE tbl_master_events
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     master_name VARCHAR(200) NOT NULL,
     teacher_name VARCHAR(150),
-    description VARCHAR(1000) NOT NULL,
+    description VARHAR(1000) NOT NULL,
     coast INTEGER NOT NULL,
     event_date DATETIME NOT NULL,
     img_name VARCHAR(1000) DEFAULT 'default.jpg',

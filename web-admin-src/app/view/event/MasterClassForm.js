@@ -90,6 +90,12 @@ Ext.define('AdminPanel.view.event.MasterClassForm', {
                 listeners: {
                     change: 'onFileFieldChange'
                 }
+            },{
+                xtype: 'checkbox',
+                hidden: true,
+                name: 'is_deleted',
+                checked: true,
+                inputValue: false
             }]
         },{
             xtype: 'fieldset',

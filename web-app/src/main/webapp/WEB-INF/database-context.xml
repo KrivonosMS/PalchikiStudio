@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<b:beans xmlns:b="http://www.springframework.org/schema/beans"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:annotation-config/>
+    <context:component-scan base-package="ru.palchikistudio.user.data"/>
+    <context:component-scan base-package="ru.palchikistudio.admin.data"/>
 
-    <b:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <b:property name="driverClassName" value="com.mysql.jdbc.Driver"></b:property>
-        <b:property name="url" value="jdbc:mysql://localhost/palchiki_studio"></b:property>
-        <b:property name="username" value="root"></b:property>
-        <b:property name="password" value="root"></b:property>
-    </b:bean>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost/palchiki_studio"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="root"></property>
+    </bean>
 
-    <b:bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <b:constructor-arg  name="dataSource" ref="dataSource" />
-    </b:bean>
-</b:beans>
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="ru.palchikistudio.model"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

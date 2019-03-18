@@ -8,5 +8,5 @@ import java.util.List;
  * Created by Admin on 04.11.2018.
  */
 public interface MasterClassUserService {
-    public List<MasterClass> getAllActualMasterClasses() throws MasterClassUserServiceException;
+    public List<MasterClass> getAllActualMasterClasses();
 }

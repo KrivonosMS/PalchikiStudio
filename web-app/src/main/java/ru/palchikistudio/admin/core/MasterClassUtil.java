@@ -1,7 +1,13 @@
 package ru.palchikistudio.admin.core;
 
+import org.springframework.web.multipart.MultipartFile;
 import ru.palchikistudio.model.MasterClass;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,44 +19,26 @@ import java.util.List;
  * Created by Admin on 28.12.2018.
  */
 public class MasterClassUtil {
-    public static Integer transformToInteger(String value) throws Exception {
-        Integer transformedValue = null;
-        if(value != null && !"".equals(value)) {
-            try {
-                transformedValue = Integer.valueOf(value);
-            } catch (Exception e) {
-                throw new Exception("Ошибка во время преобразования строки в число.", e);
-            }
+
+    public static String saveFile(MultipartFile file, Integer id) throws IOException {
+        String relativePath = null;
+        boolean isNewMasterClass = id == null;
+        String fileName = file.getOriginalFilename();
+        if (fileName != null && !"".equals(fileName)) {
+            String curStringDate = new SimpleDateFormat("ddMMyyyy_HHmmss").format(System.currentTimeMillis());
+            fileName = curStringDate + "-" + fileName;
+            relativePath = MasterClass.IMG_DIRECTORY + File.separator + fileName;
+            String rootFolder = System.getProperty("catalina.home") + "/webapps";
+            Path path = Paths.get(rootFolder + relativePath);
+            byte[] bytes = file.getBytes();
+            Files.write(path, bytes);
+        } else if(isNewMasterClass){
+            relativePath = MasterClass.IMG_DIRECTORY + File.separator + MasterClass.DEFAULT_IMG;
         }
-        return transformedValue;
+        return relativePath;
     }
 
-    public static Date transformToDate(String value) throws Exception {
-        Date transformedValue = null;
-        if (value != null && !"".equals(value)) {
-            try {
-                DateFormat format = new SimpleDateFormat(MasterClass.DATE_FORMAT);
-                transformedValue = format.parse(value);
-            } catch (ParseException e) {
-                throw new Exception("Ошибка во время преобразования строки в дату.", e);
-            }
-        }
-        return transformedValue;
-    }
-
-    public static void checkOnEmpty(String name, Integer coast, Date date) throws Exception {
-        List<String> errors = new ArrayList<>();
-        if (name == null || "".equals(name)) {
-            errors.add("Не задано название мастер-класса.");
-        }
-        if (coast == null) {
-            errors.add("Не задана стоимость мастер-класса.");
-        }
-        if (date == null) {
-            errors.add("Не задана дата проведения мастер-класса");
-        }
-        if (!errors.isEmpty()) {
-            throw new Exception(errors.toString());
-        }
+    public static String getDefaultImgPath() {
+        return MasterClass.IMG_DIRECTORY + File.separator + MasterClass.DEFAULT_IMG;
     }
 }

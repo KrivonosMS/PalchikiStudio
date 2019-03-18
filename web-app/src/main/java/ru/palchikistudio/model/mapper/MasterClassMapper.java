@@ -21,7 +21,7 @@ public class MasterClassMapper implements RowMapper<MasterClass> {
                 .addMasterClassId(rs.getInt("id"))
                 .addTeacherName(rs.getString("teacher_name"))
                 .addDescription(rs.getString("description"))
-                .addImgPath(MasterClass.IMG_DIRECTORY + File.separator + rs.getString("img_name"))
+                .addImgPath(rs.getString("img_name"))
                 .build();
     }
 }

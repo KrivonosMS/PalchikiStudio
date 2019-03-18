@@ -4,9 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.palchikistudio.user.data.MasterClassUserDaoImpl;
-import ru.palchikistudio.user.data.MasterClassDaoException;
 import ru.palchikistudio.model.MasterClass;
+import ru.palchikistudio.user.data.MasterClassUserDaoImpl;
 
 import java.util.List;
 
@@ -26,12 +25,8 @@ public class MasterClassUserServiceImpl implements MasterClassUserService {
     }
 
     @Override
-    public List<MasterClass> getAllActualMasterClasses() throws MasterClassUserServiceException {
-        try {
-            return masterClassUserDao.getAllActualMasterClasses();
-        } catch (MasterClassDaoException e) {
-            throw new MasterClassUserServiceException("Ошибка при получении списка актуальных мастер-классов", e);
-        }
+    public List<MasterClass> getAllActualMasterClasses() {
+        return masterClassUserDao.getAllActualMasterClasses();
     }
 
     private String transformToJson(List<MasterClass> masterClasses) {

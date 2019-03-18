@@ -2,30 +2,50 @@ package ru.palchikistudio.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by Admin on 01.11.2018.
  */
+@Entity
+@DynamicInsert
+@Table(name="tbl_master_events", schema="palchiki_studio")
 public class MasterClass {
     public final static String DATE_FORMAT = "dd.MM.yyyy hh:mm";
     public final static String IMG_DIRECTORY = "/uploads/palchiki/mk";
     public final static String DEFAULT_IMG = "default.jpg";
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @JsonProperty("master_class_id")
     private Integer masterClassId;
+    @Column(name = "master_name")
     @JsonProperty("name")
     private String masterClassName;
+    @Column
     private String description;
+    @Column(name = "teacher_name")
     @JsonProperty("teacher_name")
     private String teacherName;
+    @Column
     private int coast;
+    @Column(name = "event_date")
+    @Temporal(TemporalType.DATE)
     @JsonProperty("date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
     private Date masterClassDate;
+    @Column(name = "img_name")
     @JsonProperty("img_path")
     private String imgPath;
+
+    @Column(name = "is_deleted", columnDefinition = "TINYINT(1)")
     @JsonProperty("is_deleted")
     private Boolean isDeleted;
 
@@ -44,6 +64,7 @@ public class MasterClass {
     }
 
     public static class Builder {
+
         private Integer masterClassId = null;
         private String masterClassName;
         private String teacherName = "";
@@ -52,7 +73,6 @@ public class MasterClass {
         private Date masterClassDate;
         private String imgPath = null;
         private Boolean isDeleted = null;
-
         public Builder(String masterClassName, int coast, Date masterClassDate) {
             this.masterClassName = masterClassName;
             this.coast = coast;
@@ -124,8 +144,8 @@ public class MasterClass {
         public boolean isDeleted() {
             return isDeleted;
         }
-    }
 
+    }
     @Override
     public String toString() {
         return "MasterClass{" +
@@ -135,6 +155,7 @@ public class MasterClass {
                 ", teacherName='" + teacherName + '\'' +
                 ", coast=" + coast +
                 ", masterClassDate=" + masterClassDate +
+                ", imgPath=" + imgPath +
                 ", isDeleted=" + isDeleted +
                 '}';
     }
@@ -162,6 +183,9 @@ public class MasterClass {
     public int getCoast() {
         return coast;
     }
+    public void setCoast(int cost) {
+        this.coast = cost;
+    }
 
     public Date getMasterClassDate() {
         return masterClassDate;
@@ -171,8 +195,12 @@ public class MasterClass {
         return imgPath;
     }
 
-    public Boolean getDeleted() {
+    public Boolean getIsDeleted() {
         return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean deleted) {
+        this.isDeleted = deleted;
     }
 
 }
