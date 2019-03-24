@@ -16,7 +16,6 @@ import ru.palchikistudio.model.MasterClass;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.File;
 import java.util.Date;
 
 @Controller
@@ -34,6 +33,7 @@ public class AdminController {
     public MasterClassResponse getMasterClasses(@RequestParam(value = "start") int from,
                                                 @RequestParam(value = "limit") int limit) throws Exception {
         try {
+            LOGGER.info( masterClassAdminService.getAllMasterClasses(from, limit).getData());
             return masterClassAdminService.getAllMasterClasses(from, limit);
         } catch (Exception e) {
             LOGGER.error("Непредвиденная ошибка.", e);
@@ -63,7 +63,7 @@ public class AdminController {
                                             @RequestParam("master_class_id") Integer id,
                                             @Valid @NotBlank @RequestParam("name") String name,
                                             @Valid @NotNull @RequestParam("coast") Integer coast,
-                                            @Valid @NotNull @RequestParam("date") @DateTimeFormat(pattern="dd.MM.yyyy hh:mm") Date date,
+                                            @Valid @NotNull @RequestParam("date") @DateTimeFormat(pattern=MasterClass.DATE_FORMAT) Date date,
                                             @RequestParam("description") String description,
                                             @RequestParam("is_deleted") boolean isDeleted,
                                             @RequestParam("teacher_name") String teacherName) throws Exception {

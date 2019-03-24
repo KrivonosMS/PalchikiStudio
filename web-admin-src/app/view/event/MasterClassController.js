@@ -104,7 +104,11 @@ Ext.define('AdminPanel.view.event.MasterClassController', {
     },
 
     onSaveFailure: function(form, action) {
-        AdminPanel.util.Util.handleFormFailure(action);
+        if(action.response.responseXML && action.response.responseXML.URL === 'http://localhost:8080/PalchikiStudio/login') {
+            window.location.reload();
+        } else {
+            AdminPanel.util.Util.handleFormFailure(action);
+        }
     },
 
     onFileFieldChange: function(fileField, value, options) {

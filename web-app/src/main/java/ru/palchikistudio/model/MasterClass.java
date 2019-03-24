@@ -2,10 +2,7 @@ package ru.palchikistudio.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,7 +14,7 @@ import java.util.Date;
 @DynamicInsert
 @Table(name="tbl_master_events", schema="palchiki_studio")
 public class MasterClass {
-    public final static String DATE_FORMAT = "dd.MM.yyyy hh:mm";
+    public final static String DATE_FORMAT = "dd.MM.yyyy HH:mm";
     public final static String IMG_DIRECTORY = "/uploads/palchiki/mk";
     public final static String DEFAULT_IMG = "default.jpg";
 
@@ -37,9 +34,9 @@ public class MasterClass {
     @Column
     private int coast;
     @Column(name = "event_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @JsonProperty("date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT, timezone = "GMT+3")
     private Date masterClassDate;
     @Column(name = "img_name")
     @JsonProperty("img_path")

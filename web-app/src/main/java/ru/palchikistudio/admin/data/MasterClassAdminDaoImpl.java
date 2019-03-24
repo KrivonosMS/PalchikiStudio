@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.palchikistudio.model.MasterClass;
 
@@ -19,15 +18,9 @@ import java.util.List;
 @Repository
 public class MasterClassAdminDaoImpl implements MasterClassAdminDao {
     private static final Logger LOGGER = Logger.getLogger(MasterClassAdminDaoImpl.class);
-    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     private SessionFactory sessionFactory;
-
-    @Autowired
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public MasterClassAdminDaoImpl() {
 

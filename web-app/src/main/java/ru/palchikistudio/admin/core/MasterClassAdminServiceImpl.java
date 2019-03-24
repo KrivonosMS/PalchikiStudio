@@ -49,6 +49,6 @@ public class MasterClassAdminServiceImpl implements MasterClassAdminService {
 
     @Override
     public String getImgPath(int id) {
-       return masterClassDao.getImgPath(id);
+        return masterClassDao.getImgPath(id);
     }
 }
