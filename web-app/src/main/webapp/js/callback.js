@@ -7,7 +7,7 @@
 
 
 (function () {
-  var URL = 'feedback';
+  var URL = 'site/feedback';
 
   function closeIconHandler() {
     callbackFormElement.classList.add('hidden');

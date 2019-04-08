@@ -31,7 +31,7 @@ public class AdminController {
     @GetMapping(value = "/master_class")
     @ResponseBody
     public MasterClassResponse getMasterClasses(@RequestParam(value = "start") int from,
-                                                @RequestParam(value = "limit") int limit) throws Exception {
+                                                @RequestParam(value = "limit") int limit) {
         try {
             LOGGER.info( masterClassAdminService.getAllMasterClasses(from, limit).getData());
             return masterClassAdminService.getAllMasterClasses(from, limit);
@@ -43,7 +43,7 @@ public class AdminController {
 
     @PostMapping(value = "/delete", headers ={"Content-Type=application/json"})
     @ResponseBody
-    public StandartAnswer deleteMasterClasses(@RequestBody MasterClass masterClass) throws Exception {
+    public StandartAnswer deleteMasterClasses(@RequestBody MasterClass masterClass) {
         Integer id = masterClass.getMasterClassId();
         try {
             if (id == null) {
@@ -66,7 +66,7 @@ public class AdminController {
                                             @Valid @NotNull @RequestParam("date") @DateTimeFormat(pattern=MasterClass.DATE_FORMAT) Date date,
                                             @RequestParam("description") String description,
                                             @RequestParam("is_deleted") boolean isDeleted,
-                                            @RequestParam("teacher_name") String teacherName) throws Exception {
+                                            @RequestParam("teacher_name") String teacherName) {
         try {
             String imgPath = MasterClassUtil.getDefaultImgPath();
             String fileName = file.getOriginalFilename();
