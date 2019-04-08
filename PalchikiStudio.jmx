@@ -743,7 +743,7 @@
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request" enabled="true">
           <stringProp name="dataSource">connection</stringProp>
-          <stringProp name="query">select id from tbl_master_events where master_name = &apos;${test_master_class_name}&apos;</stringProp>
+          <stringProp name="query">select id from tbl_master_events where master_name = &apos;${test_master_class_name}&apos; and is_deleted = false;</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
           <stringProp name="queryTimeout"></stringProp>
